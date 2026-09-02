@@ -17,10 +17,11 @@ node_modules/
 frontend/dist/
 frontend/.vite/
 
-models/*.joblib
 models/*.pkl
 models/distilbert/
 !models/.gitkeep
+!models/baseline_tfidf_lr.joblib
+!models/tfidf_vectorizer.joblib
 
 ml/data/raw/*
 !ml/data/raw/.gitkeep
