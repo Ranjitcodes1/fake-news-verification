@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Veritas AI Verifier</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">
+        <div class="logo-icon">🛡️</div>
+        <div>
+          <h2>Veritas</h2>
+          <span class="tagline">AI News & Claim Verifier</span>
+        </div>
+      </div>
+      <button id="settings-btn" class="icon-btn" title="Settings">⚙️</button>
+    </header>
+
+    <!-- Settings Panel (Hidden by default) -->
+    <div id="settings-panel" class="settings-panel hidden">
+      <h3>Configuration</h3>
+      <label for="api-url-input">Backend API URL:</label>
+      <input type="text" id="api-url-input" value="http://localhost:8000/api/v1">
+      <label for="web-url-input">Web Dashboard URL:</label>
+      <input type="text" id="web-url-input" value="http://localhost:5173">
+      <div class="settings-actions">
+        <button id="save-settings-btn" class="btn btn-primary btn-sm">Save</button>
+        <button id="close-settings-btn" class="btn btn-secondary btn-sm">Close</button>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div id="main-panel">
+      <!-- Quick Tab Action -->
+      <div class="card action-card">
+        <div class="tab-info">
+          <span class="tab-label">Current Page:</span>
+          <span id="current-tab-title" class="tab-title">Loading tab...</span>
+        </div>
+        <button id="verify-tab-btn" class="btn btn-primary btn-full">
+          <span>🔍 Verify Current Page</span>
+        </button>
+      </div>
+
+      <div class="divider"><span>OR PASTE TEXT</span></div>
+
+      <!-- Manual Input Form -->
+      <div class="form-group">
+        <input type="text" id="headline-input" placeholder="Headline / Claim statement..." class="input-field">
+        <textarea id="content-input" placeholder="Article body or paragraph text..." rows="3" class="input-field"></textarea>
+        <button id="verify-text-btn" class="btn btn-accent btn-full">
+          <span>Analyze Text</span>
+        </button>
+      </div>
+
+      <!-- Error Alert -->
+      <div id="error-alert" class="alert alert-error hidden"></div>
+
+      <!-- Loading State -->
+      <div id="loading-spinner" class="loading-state hidden">
+        <div class="spinner"></div>
+        <p>Evaluating veracity & corroborating evidence…</p>
+      </div>
+
+      <!-- Result Card -->
+      <div id="result-card" class="result-card hidden">
+        <div class="result-header">
+          <div id="result-badge" class="badge"></div>
+          <div class="confidence-box">
+            <span id="confidence-val" class="confidence-val">--%</span>
+            <span class="confidence-label">Certainty</span>
+          </div>
+        </div>
+
+        <div class="meter-bar">
+          <div id="meter-fill" class="meter-fill"></div>
+        </div>
+
+        <p id="result-narrative" class="narrative"></p>
+
+        <!-- Claims & Evidence Snippet -->
+        <div id="evidence-preview" class="evidence-preview">
+          <h4>Top Extracted Claim:</h4>
+          <p id="top-claim-text" class="top-claim"></p>
+        </div>
+
+        <a id="view-full-dossier-btn" href="#" target="_blank" class="btn btn-outline btn-full">
+          <span>View Full Report & Token Heatmap ↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>

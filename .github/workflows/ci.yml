@@ -1,0 +1,30 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: sqlite:///./ci.db
+      APP_ENV: test
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install Python deps
+        run: pip install -r backend/requirements.txt
+      - name: Train baseline and test
+        run: python -m ml.training.train_classical && pytest
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Frontend test and build
+        working-directory: frontend
+        run: |
+          npm install
+          npm test
+          npm run build

@@ -1,0 +1,145 @@
+{
+  "dataset_profile": {
+    "full": {
+      "rows": 160,
+      "class_counts": {
+        "real": 80,
+        "fake": 80
+      },
+      "duplicate_cleaned_texts": 0,
+      "missing_headline": 0,
+      "missing_content": 0,
+      "mean_word_count": 40.625,
+      "median_word_count": 40.0,
+      "sources": {
+        "synthetic_demo_expanded": 160
+      },
+      "license_note": "Default sample_articles.csv is a synthetic demo corpus for engineering. It is not LIAR or FakeNewsNet. Do not treat metrics as real-world accuracy."
+    },
+    "train_rows": 112,
+    "validation_rows": 16,
+    "test_rows": 32
+  },
+  "dataset_file": "sample.csv",
+  "best_model": "logistic_regression",
+  "model_version": "logistic_regression-v1",
+  "artifact": "models\\baseline_tfidf_lr.joblib",
+  "comparison": {
+    "logistic_regression": {
+      "validation": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      "test": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      "training_seconds": 0.2026,
+      "confusion_matrix_test": [
+        [
+          12,
+          0
+        ],
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    "naive_bayes": {
+      "validation": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      "test": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      "training_seconds": 0.0131,
+      "confusion_matrix_test": [
+        [
+          12,
+          0
+        ],
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    "svm": {
+      "validation": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      "test": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      "training_seconds": 0.0355,
+      "confusion_matrix_test": [
+        [
+          12,
+          0
+        ],
+        [
+          0,
+          20
+        ]
+      ]
+    },
+    "random_forest": {
+      "validation": {
+        "accuracy": 1.0,
+        "precision": 1.0,
+        "recall": 1.0,
+        "f1": 1.0,
+        "roc_auc": 1.0
+      },
+      "test": {
+        "accuracy": 0.9375,
+        "precision": 1.0,
+        "recall": 0.9,
+        "f1": 0.9473684210526315,
+        "roc_auc": 1.0
+      },
+      "training_seconds": 0.3633,
+      "confusion_matrix_test": [
+        [
+          12,
+          0
+        ],
+        [
+          2,
+          18
+        ]
+      ]
+    }
+  },
+  "label_mapping": {
+    "real": 0,
+    "fake": 1
+  },
+  "notes": [
+    "Trained on sample.csv with leakage-aware train/val/test splits.",
+    "Confidence scores are probabilistic class estimates."
+  ]
+}
