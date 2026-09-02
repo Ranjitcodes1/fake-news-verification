@@ -9,9 +9,21 @@ import type {
   VerifyResult,
 } from "../types/analysis";
 
+function resolveBaseUrl(): string {
+  const envUrl =
+    import.meta.env.VITE_API_URL ||
+    import.meta.env.VITE_API_BASE_URL ||
+    "https://veritas-api-8c4d.onrender.com";
+  const trimmed = envUrl.trim().replace(/\/+$/, "");
+  if (!trimmed.endsWith("/api/v1")) {
+    return `${trimmed}/api/v1`;
+  }
+  return trimmed;
+}
+
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || "/api/v1",
-  timeout: 45000,
+  baseURL: resolveBaseUrl(),
+  timeout: 60000,
 });
 
 // Attach JWT token from localStorage if present
