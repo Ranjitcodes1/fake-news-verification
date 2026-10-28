@@ -8,11 +8,13 @@ The Veritas browser extension allows users to verify claims and news articles di
 
 1. **1-Click Current Page Verification**:
    - Analyzes the article on your active browser tab using the backend's SSRF-safe URL scraper and evidence pipeline.
-2. **Right-Click Context Menu**:
+2. **Intelligent Anti-Bot DOM Extraction Fallback**:
+   - If a news portal blocks automated server scraping (e.g. Akamai or Cloudflare 403 on outlets like NDTV), the extension automatically extracts the article directly from the active tab's rendered DOM via `chrome.scripting`, ensuring uninterrupted verification.
+3. **Right-Click Context Menu**:
    - Highlight any text or claim on Twitter/X, Reddit, or news sites, right-click, and select `"Verify selection with Veritas"` to open an instant verification dossier.
-3. **Quick In-Popup Analysis**:
+4. **Quick In-Popup Analysis**:
    - Paste any headline or snippet into the extension popup for instant evaluation.
-4. **Configurable Endpoint**:
+5. **Configurable Endpoint**:
    - Point to local backend (`http://localhost:8000/api/v1`) or your live cloud deployment (`https://your-domain.onrender.com/api/v1`).
 
 ---

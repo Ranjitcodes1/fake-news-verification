@@ -630,8 +630,10 @@ The React 18 single-page application is structured into modular views:
 
 ### 4.8 Google Chrome Manifest V3 Browser Extension
 The browser extension in [extension/](file:///d:/fake-news-verification/extension) consists of:
-* `manifest.json`: Configured with Manifest V3 standards, permissions for `activeTab` and `scripting`.
-* `popup.html` & `popup.js`: Displays a sleek popup window allowing users to click **"Verify Current Tab"**. The extension automatically extracts the active tab URL, submits it to the Veritas API, and displays the calibrated verdict, confidence gauge, and top extracted proposition directly within the browser window.
+* `manifest.json`: Configured with Manifest V3 standards, permissions for `activeTab`, `contextMenus`, `storage`, and `scripting`.
+* `popup.html` & `popup.js`: Displays a sleek popup window allowing users to click **"Verify Current Tab"** or paste claims for immediate in-popup evaluation.
+* **Intelligent DOM Extraction Fallback:** When encountering anti-bot firewalls or Web Application Firewalls (e.g., Akamai or Cloudflare bot detection on outlets like NDTV) that return HTTP 403 Forbidden to automated server-side crawlers, the extension automatically triggers a client-side DOM extraction fallback via `chrome.scripting.executeScript()`. It parses the substantive article body directly from the active browser tab where the page is already authenticated and rendered, piping the normalized text directly to `/api/v1/verify` for uninterrupted analysis.
+* `background.js`: Manages context menu integration, enabling right-click instant claim verification on highlighted text across any web portal or social media feed.
 
 ---
 
