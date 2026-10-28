@@ -1,24 +1,24 @@
 {
   "dataset_profile": {
     "full": {
-      "rows": 160,
+      "rows": 168,
       "class_counts": {
-        "real": 80,
-        "fake": 80
+        "real": 84,
+        "fake": 84
       },
       "duplicate_cleaned_texts": 0,
       "missing_headline": 0,
       "missing_content": 0,
-      "mean_word_count": 40.625,
+      "mean_word_count": 40.982142857142854,
       "median_word_count": 40.0,
       "sources": {
-        "synthetic_demo_expanded": 160
+        "synthetic_demo_expanded": 168
       },
       "license_note": "Default sample_articles.csv is a synthetic demo corpus for engineering. It is not LIAR or FakeNewsNet. Do not treat metrics as real-world accuracy."
     },
-    "train_rows": 112,
-    "validation_rows": 16,
-    "test_rows": 32
+    "train_rows": 117,
+    "validation_rows": 17,
+    "test_rows": 34
   },
   "dataset_file": "sample.csv",
   "best_model": "logistic_regression",
@@ -34,21 +34,21 @@
         "roc_auc": 1.0
       },
       "test": {
-        "accuracy": 1.0,
-        "precision": 1.0,
+        "accuracy": 0.9705882352941176,
+        "precision": 0.9444444444444444,
         "recall": 1.0,
-        "f1": 1.0,
-        "roc_auc": 1.0
+        "f1": 0.9714285714285714,
+        "roc_auc": 0.9965397923875432
       },
-      "training_seconds": 0.2026,
+      "training_seconds": 0.1898,
       "confusion_matrix_test": [
         [
-          12,
-          0
+          16,
+          1
         ],
         [
           0,
-          20
+          17
         ]
       ]
     },
@@ -61,21 +61,21 @@
         "roc_auc": 1.0
       },
       "test": {
-        "accuracy": 1.0,
-        "precision": 1.0,
+        "accuracy": 0.9705882352941176,
+        "precision": 0.9444444444444444,
         "recall": 1.0,
-        "f1": 1.0,
-        "roc_auc": 1.0
+        "f1": 0.9714285714285714,
+        "roc_auc": 0.9896193771626297
       },
-      "training_seconds": 0.0131,
+      "training_seconds": 0.0168,
       "confusion_matrix_test": [
         [
-          12,
-          0
+          16,
+          1
         ],
         [
           0,
-          20
+          17
         ]
       ]
     },
@@ -88,48 +88,48 @@
         "roc_auc": 1.0
       },
       "test": {
-        "accuracy": 1.0,
-        "precision": 1.0,
+        "accuracy": 0.9705882352941176,
+        "precision": 0.9444444444444444,
         "recall": 1.0,
-        "f1": 1.0,
+        "f1": 0.9714285714285714,
         "roc_auc": 1.0
       },
-      "training_seconds": 0.0355,
+      "training_seconds": 0.0333,
       "confusion_matrix_test": [
         [
-          12,
-          0
+          16,
+          1
         ],
         [
           0,
-          20
+          17
         ]
       ]
     },
     "random_forest": {
       "validation": {
-        "accuracy": 1.0,
+        "accuracy": 0.8235294117647058,
         "precision": 1.0,
-        "recall": 1.0,
-        "f1": 1.0,
-        "roc_auc": 1.0
+        "recall": 0.6666666666666666,
+        "f1": 0.8,
+        "roc_auc": 0.9861111111111112
       },
       "test": {
-        "accuracy": 0.9375,
+        "accuracy": 0.9117647058823529,
         "precision": 1.0,
-        "recall": 0.9,
-        "f1": 0.9473684210526315,
-        "roc_auc": 1.0
+        "recall": 0.8235294117647058,
+        "f1": 0.9032258064516129,
+        "roc_auc": 0.9930795847750865
       },
-      "training_seconds": 0.3633,
+      "training_seconds": 0.3737,
       "confusion_matrix_test": [
         [
-          12,
+          17,
           0
         ],
         [
-          2,
-          18
+          3,
+          14
         ]
       ]
     }

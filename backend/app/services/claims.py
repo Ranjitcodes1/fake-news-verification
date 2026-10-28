@@ -2,25 +2,51 @@ from __future__ import annotations
 
 import re
 
-SENTENCE_RE = re.compile(r"(?<=[.!?])\s+|\n+")
-QUOTE_RE = re.compile(r'["“\']([^"”\']{20,})["”\']')
+# Multilingual sentence splitting supporting Latin (.!?), Devanagari/Odia Danda (। \u0964, \u0B70), and Spanish inverted marks (¿¡)
+SENTENCE_RE = re.compile(r"(?<=[.!?।\u0964\u0B70])\s+|\n+")
+QUOTE_RE = re.compile(r'["“\'«»]([^"”\'«»]{20,})["”\'«»]')
 
+# High-weight factual reporting verbs across English, Odia, Hindi, and Spanish
 REPORTING_VERBS = re.compile(
     r"\b(stated|announced|confirmed|banned|approved|introduced|reports?|according|claimed|discovered|"
-    r"revealed|authorized|mandated|seized|signed|passed|declared|published|found|concluded)\b",
-    re.IGNORECASE,
+    r"revealed|authorized|mandated|seized|signed|passed|declared|published|found|concluded|"
+    # Odia verbs
+    r"କହିଛନ୍ତି|ଦାବି କରିଛନ୍ତି|ଦାବି|ଘୋଷଣା କରିଛନ୍ତି|ଘୋଷଣା|ସ୍ପଷ୍ଟ କରିଛନ୍ତି|ନିଷିଦ୍ଧ|ନିଷିଦ୍ଧ କରାଯାଇଛି|ପ୍ରକାଶ କରିଛନ୍ତି|ମଞ୍ଜୁରୀ|ଜଣାଇଛନ୍ତି|"
+    # Hindi verbs
+    r"कहा|बताया|घोषित|पुष्टि|प्रतिबंधित|दावा|खोज|मंजूरी|लागू|हस्ताक्षर|जारी|अधिसूचित|खारिज|"
+    # Spanish verbs
+    r"declaró|afirmó|anunció|confirmó|prohibió|aprobó|reveló|publicó|aseguró|descubrió|desmintió)\b",
+    re.IGNORECASE | re.UNICODE,
 )
+
+# Quantitative metrics & statistics across English, Odia, Hindi, and Spanish (including Odia ୦-୯ and Hindi/Arabic numerals)
 QUANTITATIVE_PATTERNS = re.compile(
-    r"\b(\d+(\.\d+)?%|\d+(\.\d+)?\s*(percent|million|billion|trillion|crore|lakh|dollars|rupees|cases|deaths|tons))\b|\$\d+",
-    re.IGNORECASE,
+    r"(\b\d+(\.\d+)?%|\b[\u0B66-\u0B6F]+%|\b[\u0966-\u096F]+%|"
+    r"\b(\d+|[\u0B66-\u0B6F]+|[\u0966-\u096F]+)\s*"
+    r"(percent|million|billion|trillion|crore|lakh|dollars|rupees|cases|deaths|tons|"
+    r"ପ୍ରତିଶତ|କୋଟି|ଲକ୍ଷ|ହଜାର|ଟଙ୍କା|ମୃତ୍ୟୁ|ମାମଲା|"
+    r"प्रतिशत|लाख|करोड़|हजार|डॉलर|रुपये|मौतें|मामले|"
+    r"por ciento|millones|billones|dólares|pesos|muertes|casos)\b)|[\$₹€]\d+",
+    re.IGNORECASE | re.UNICODE,
 )
+
+# Causal and evidence connectives across English, Odia, Hindi, and Spanish
 FACTUAL_CONNECTIVES = re.compile(
-    r"\b(because|due to|resulting in|as a result|evidence indicates|official data|investigation)\b",
-    re.IGNORECASE,
+    r"\b(because|due to|resulting in|as a result|evidence indicates|official data|investigation|"
+    # Odia connectives
+    r"କାରଣ|ଫଳସ୍ୱରୂପ|ତଦନ୍ତ|ସରକାରୀ ତଥ୍ୟ|ପ୍ରମାଣ|ରିପୋର୍ଟ ଅନୁସାରେ|"
+    # Hindi connectives
+    r"क्योंकि|के कारण|परिणामस्वरूप|जांच|आधिकारिक डेटा|सबूत|अनुसार|"
+    # Spanish connectives
+    r"porque|debido a|como resultado|investigación|datos oficiales|pruebas)\b",
+    re.IGNORECASE | re.UNICODE,
 )
+
 BOILERPLATE_PATTERNS = re.compile(
-    r"\b(click here|subscribe|read more|share this|advertisement|copyright|all rights reserved|terms of service)\b",
-    re.IGNORECASE,
+    r"\b(click here|subscribe|read more|share this|advertisement|copyright|all rights reserved|terms of service|"
+    r"ଏଠାରେ କ୍ଲିକ୍ କରନ୍ତୁ|ସବସ୍କ୍ରାଇବ୍|ଆହୁରି ପଢ଼ନ୍ତୁ|ୟାହା ସେୟାର କରନ୍ତୁ|"
+    r"यहाँ क्लिक करें|सब्सक्राइब|और पढ़ें|शेयर करें)\b",
+    re.IGNORECASE | re.UNICODE,
 )
 
 

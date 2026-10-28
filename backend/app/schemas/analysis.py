@@ -10,6 +10,7 @@ class PredictRequest(BaseModel):
     headline: str = Field(..., min_length=3, max_length=500)
     content: str = Field(..., min_length=40, max_length=20000)
     model_type: str = Field(default="auto", description="'auto', 'classical', or 'distilbert'")
+    source_url: str | None = Field(default=None, description="Optional public URL where this article was published")
 
     @field_validator("headline", "content")
     @classmethod
@@ -42,6 +43,8 @@ class PredictResponse(BaseModel):
     confidence: float
     model_version: str
     backend: str = "sklearn_tfidf"
+    language: str = "en"
+    language_name: str = "English"
     disclaimer: str
 
 
@@ -79,6 +82,8 @@ class VerifyResponse(BaseModel):
     confidence: float
     model_version: str
     backend: str = "sklearn_tfidf"
+    language: str = "en"
+    language_name: str = "English"
     headline: str
     content: str
     source_url: str | None = None
@@ -102,6 +107,8 @@ class HistoryItem(BaseModel):
     headline: str
     prediction: str
     confidence: float
+    language: str = "en"
+    language_name: str = "English"
     created_at: datetime
 
 

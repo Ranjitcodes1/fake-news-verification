@@ -13,8 +13,11 @@ function resolveBaseUrl(): string {
   const envUrl =
     import.meta.env.VITE_API_URL ||
     import.meta.env.VITE_API_BASE_URL ||
-    "https://veritas-api-8c4d.onrender.com";
+    "";
   const trimmed = envUrl.trim().replace(/\/+$/, "");
+  if (!trimmed) {
+    return "/api/v1";
+  }
   if (!trimmed.endsWith("/api/v1")) {
     return `${trimmed}/api/v1`;
   }

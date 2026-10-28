@@ -46,6 +46,8 @@ export interface VerifyResult {
   confidence: number;
   model_version: string;
   backend?: string;
+  language?: string;
+  language_name?: string;
   headline: string;
   content: string;
   source_url?: string | null;
@@ -55,6 +57,12 @@ export interface VerifyResult {
     category?: string;
     domain?: string | null;
     notes?: string[];
+    publisher?: string | null;
+    published_date?: string | null;
+    image_url?: string | null;
+    author?: string | null;
+    trust_score?: number;
+    typosquat_warning?: string | null;
   };
   explanation: Attribution[];
   limitations: string[];
@@ -73,6 +81,8 @@ export interface HistoryItem {
   headline: string;
   prediction: Prediction;
   confidence: number;
+  language?: string;
+  language_name?: string;
   created_at: string;
 }
 

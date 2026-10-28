@@ -1,0 +1,348 @@
+<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+<head>
+<meta charset="utf-8">
+<title>Veritas Project Presentation & Defense Guide</title>
+<style>
+  @page {
+    size: 8.5in 11in;
+    margin: 1.0in 1.0in 1.0in 1.0in;
+    mso-header-margin: 0.5in;
+    mso-footer-margin: 0.5in;
+  }
+  body {
+    font-family: "Calibri", "Segoe UI", Arial, sans-serif;
+    font-size: 11pt;
+    line-height: 1.5;
+    color: #1a1a1a;
+  }
+  h1 {
+    font-size: 20pt;
+    color: #0f172a;
+    border-bottom: 2px solid #2563eb;
+    padding-bottom: 6px;
+    margin-top: 24pt;
+    margin-bottom: 12pt;
+    page-break-before: always;
+  }
+  h1.first-slide {
+    page-break-before: avoid;
+    margin-top: 0;
+  }
+  h2 {
+    font-size: 15pt;
+    color: #1e3a8a;
+    margin-top: 14pt;
+    margin-bottom: 8pt;
+  }
+  h3 {
+    font-size: 12pt;
+    color: #334155;
+    margin-top: 10pt;
+    margin-bottom: 4pt;
+  }
+  p, li {
+    font-size: 11pt;
+    line-height: 1.5;
+  }
+  ul {
+    margin-top: 4pt;
+    margin-bottom: 10pt;
+    padding-left: 24pt;
+  }
+  li {
+    margin-bottom: 4pt;
+  }
+  .tagline {
+    font-size: 13pt;
+    font-style: italic;
+    color: #475569;
+    margin-bottom: 18pt;
+  }
+  .badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: bold;
+    font-size: 9.5pt;
+  }
+  .badge-real { background-color: #dcfce7; color: #166534; }
+  .badge-fake { background-color: #fee2e2; color: #991b1b; }
+  .badge-uncertain { background-color: #fef3c7; color: #92400e; }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 12pt;
+    margin-bottom: 16pt;
+  }
+  th, td {
+    border: 1px solid #cbd5e1;
+    padding: 8px 12px;
+    text-align: left;
+    font-size: 10pt;
+  }
+  th {
+    background-color: #f1f5f9;
+    color: #0f172a;
+    font-weight: bold;
+  }
+  tr:nth-child(even) td {
+    background-color: #f8fafc;
+  }
+  pre, code {
+    font-family: "Consolas", "Courier New", monospace;
+    font-size: 9.5pt;
+    background-color: #f1f5f9;
+    color: #0f172a;
+  }
+  pre {
+    padding: 12px;
+    border-left: 4px solid #3b82f6;
+    border-radius: 4px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    margin: 10pt 0;
+  }
+  .callout {
+    background-color: #eff6ff;
+    border-left: 4px solid #2563eb;
+    padding: 10px 14px;
+    margin: 12pt 0;
+  }
+  .warning-callout {
+    background-color: #fffbeb;
+    border-left: 4px solid #f59e0b;
+    padding: 10px 14px;
+    margin: 12pt 0;
+  }
+  .footer-note {
+    font-size: 9pt;
+    color: #64748b;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 8pt;
+    margin-top: 24pt;
+  }
+</style>
+</head>
+<body>
+
+<h1 class="first-slide">Slide 1: Project Title & Requirements</h1>
+<h2>Veritas — AI-Powered Fake News Detection & Verification Platform</h2>
+<p class="tagline">A Multi-Layered Epistemic Decision-Support System for Misinformation Analysis and Evidence Corroboration.</p>
+
+<div class="callout">
+  <strong>Project Summary:</strong> Veritas is a modular verification platform combining stylistic Natural Language Processing, Explainable AI (token attribution heatmaps), empirical proposition extraction, and real-time external evidence retrieval to assess news stories into calibrated tiers: 
+  <span class="badge badge-real">LIKELY_REAL</span>, 
+  <span class="badge badge-fake">LIKELY_FAKE</span>, or 
+  <span class="badge badge-uncertain">UNCERTAIN</span>.
+</div>
+
+<h3>System Requirements & Environment</h3>
+<ul>
+  <li><strong>Backend Runtime:</strong> Python 3.10 / 3.11+ (FastAPI, Uvicorn, SQLAlchemy 2.0, Pydantic v2, HTTPX)</li>
+  <li><strong>Machine Learning & NLP:</strong> scikit-learn, NumPy, SciPy, PyTorch, Hugging Face Transformers (<code>distilbert-base-uncased</code>)</li>
+  <li><strong>Frontend Web Application:</strong> React 18, TypeScript, Vite, Tailwind CSS, Recharts, Lucide Icons</li>
+  <li><strong>Browser Extension:</strong> Google Chrome / Chromium Manifest V3 WebExtension API</li>
+  <li><strong>Database Engine:</strong> SQLite 3 (Development default) / PostgreSQL 15+ (Production multi-tenant)</li>
+  <li><strong>Containerization & CI:</strong> Docker, Docker Compose, GitHub Actions</li>
+  <li><strong>Hardware Specs:</strong> Minimum 8 GB RAM (16 GB recommended for transformer models), Dual-Core 2.5 GHz+ CPU</li>
+</ul>
+
+<hr>
+
+<h1>Slide 2: Objectives & Problem Statement</h1>
+
+<h3>The Problem in Existing Systems</h3>
+<ul>
+  <li><strong>Overconfidence of Binary Classifiers:</strong> Most automated detectors force content into a naive binary "True" or "False" label, misclassifying satire, breaking news, and opinion pieces.</li>
+  <li><strong>Absence of Factual Corroboration:</strong> Conventional models inspect only writing style (word frequencies) rather than checking whether specific claims match verifiable real-world evidence.</li>
+  <li><strong>"Black-Box" Opacity:</strong> End users and journalists cannot see <em>why</em> a model flagged a piece of text, preventing trust and accountability.</li>
+</ul>
+
+<h3>Core Project Objectives</h3>
+<ol>
+  <li><strong>Transition from "Proof" to Decision Support:</strong> Provide calibrated probabilistic assessments with explicit epistemic limitations rather than claiming objective absolute truth.</li>
+  <li><strong>Dual-Track Verification Pipeline:</strong>
+    <ul>
+      <li><em>Track 1 (Stylistic NLP):</em> Evaluate rhetorical tone and sensational markers using TF-IDF and fine-tuned DistilBERT models.</li>
+      <li><em>Track 2 (Empirical Corroboration):</em> Extract discrete atomic claims and cross-reference them against authoritative fact-checking databases.</li>
+    </ul>
+  </li>
+  <li><strong>Explainable AI (XAI):</strong> Generate in-text token attribution heatmaps showing the exact words that influenced the prediction score.</li>
+  <li><strong>Multi-Platform Accessibility:</strong> Accessible via a responsive Web UI, RESTful API endpoints, batch CSV processing, and an in-browser Chrome extension.</li>
+</ol>
+
+<hr>
+
+<h1>Slide 3: System Architecture & Data Flow</h1>
+
+<p>The system is organized into modular decoupled layers:</p>
+<ul>
+  <li><strong>Client Layer:</strong> React 18 SPA (Axios, Recharts) & Manifest V3 Chrome Extension.</li>
+  <li><strong>API Gateway Layer:</strong> FastAPI with asynchronous endpoints, CORS configuration, and SSRF security filters.</li>
+  <li><strong>NLP & ML Inference Layer:</strong> TF-IDF linear vectorizers with calibrated SVM/Logistic Regression, and fallback DistilBERT transformer.</li>
+  <li><strong>Fact-Checking & Evidence Layer:</strong> Regular expression proposition extractor coupled with Google Fact Check Tools API, live web feeds, and an offline mock knowledge index.</li>
+  <li><strong>Persistence Layer:</strong> SQLAlchemy ORM mapping Users, Analyses, Claims, and Evidence to SQLite / PostgreSQL.</li>
+</ul>
+
+<div class="callout">
+  <strong>Data Flow Summary:</strong><br>
+  <code>User Input (Text / URL) &rarr; SSRF Sanitizer &rarr; [Dual Pipeline: ML Classifier + Claim Extractor] &rarr; Evidence Retrieval &rarr; Calibrated Decision Engine &rarr; JSON Response & UI Render</code>
+</div>
+
+<hr>
+
+<h1>Slide 4: Data Structures Used</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 25%;">Data Structure</th>
+      <th style="width: 30%;">Implementation Context</th>
+      <th style="width: 45%;">Engineering Purpose & Complexity</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Compressed Sparse Row Matrix (<code>csr_matrix</code>)</strong></td>
+      <td><code>scipy.sparse.csr_matrix</code> in TF-IDF Vectorizer</td>
+      <td>Encodes high-dimensional sparse text vectors (10,000+ vocabulary dimensions) with <em>O(K)</em> space efficiency, avoiding memory overhead for zero-frequency terms.</td>
+    </tr>
+    <tr>
+      <td><strong>Hash Tables / Dictionaries (<code>dict</code>)</strong></td>
+      <td><code>sources.py</code>, <code>prediction.py</code>, LRU Caches</td>
+      <td>Provides <em>O(1)</em> constant-time lookup for domain authority tags (<code>ESTABLISHED_NEWS</code>, <code>OFFICIAL</code>, <code>SUSPICIOUS</code>) and in-memory model caching.</td>
+    </tr>
+    <tr>
+      <td><strong>Hash Sets (<code>set</code>)</strong></td>
+      <td><code>claims.py</code>, <code>decision.py</code></td>
+      <td>Ensures <em>O(1)</em> deduplication of repetitive extracted sentences, search query results, and external citation URLs.</td>
+    </tr>
+    <tr>
+      <td><strong>Ranked Heaps / Sort Lists (<code>argsort</code>)</strong></td>
+      <td><code>ml/explainability/attribution.py</code></td>
+      <td>Extracts top-<em>K</em> most influential tokens via <em>O(V log K)</em> sorting of linear feature weights (<code>TF-IDF &times; Weights</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Relational ORM Trees</strong></td>
+      <td>SQLAlchemy Models (<code>session.py</code>)</td>
+      <td>Hierarchical 1-to-Many relational schema: <code>User &rarr; Analysis &rarr; Claim &rarr; Evidence</code>, preserving foreign key integrity and audit logs.</td>
+    </tr>
+    <tr>
+      <td><strong>Strict Type Trees</strong></td>
+      <td>Pydantic Schemas & TypeScript Interfaces</td>
+      <td>Enforces compile-time and runtime serialization consistency between Python backend and React frontend.</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h1>Slide 5: Working & Implementation Details</h1>
+
+<h3>1. Ingestion & Security Sanitization</h3>
+<p>Accepts manual text or extracts article content via URL. Incorporates <strong>Server-Side Request Forgery (SSRF)</strong> defense to block requests to loopback, private IP subnets (<code>127.0.0.1</code>, <code>10.0.0.0/8</code>, <code>192.168.0.0/16</code>), and cloud metadata endpoints.</p>
+
+<h3>2. Dual-Track Machine Learning Classification</h3>
+<ul>
+  <li><strong>Classical Pipeline:</strong> Word unigram + bigram TF-IDF vectorizer paired with a calibrated Linear Support Vector Classifier / Logistic Regression.</li>
+  <li><strong>Transformer Pipeline:</strong> PyTorch implementation using <code>DistilBERT-base-uncased</code> fine-tuned for semantic style classification.</li>
+  <li><strong>Dynamic Routing:</strong> Automatically uses GPU/Transformer when available, falling back gracefully to the lightweight classical model.</li>
+</ul>
+
+<h3>3. Explainable AI (XAI) Attribution</h3>
+<p>Computes directional token contribution for linear models:</p>
+<p align="center"><code>Contribution(Token<sub>i</sub>) = TF-IDF(Token<sub>i</sub>) &times; Weight<sub>i</sub></code></p>
+<p>Positive contributions push toward <span class="badge badge-fake">FAKE</span>; negative contributions push toward <span class="badge badge-real">REAL</span>. Rendered visually as color-coded in-text highlight heatmaps.</p>
+
+<h3>4. Proposition & Claim Extraction</h3>
+<p>Uses linguistic patterns, reporting verbs (<em>stated, announced, confirmed, banned, revealed</em>), and quantitative metrics (<em>percentages, currency, casualty figures</em>) to score and prioritize empirical propositions ($0.25 \le w \le 0.98$).</p>
+
+<h3>5. Multi-Source Evidence Retrieval & Stance Analysis</h3>
+<p>Queries the Google Fact Check Tools API, live web feeds, and local mock knowledge bases. Evaluates lexical stance to determine whether authoritative sources <strong>Support</strong>, <strong>Contradict</strong>, or are <strong>Inconclusive</strong> regarding each claim.</p>
+
+<h3>6. Decision Calibration & Epistemic Limitations</h3>
+<p>Applies calibrated thresholds: $P(\text{fake}) \ge 0.70 \rightarrow$ <strong>LIKELY_FAKE</strong>; $P(\text{real}) \ge 0.70 \rightarrow$ <strong>LIKELY_REAL</strong>; balanced probabilities $\rightarrow$ <strong>UNCERTAIN</strong>. Every report automatically appends explicit epistemic limitations.</p>
+
+<hr>
+
+<h1>Slide 6: Output & Demonstration Scenarios</h1>
+
+<h3>Sample Verification Response</h3>
+<pre>{
+  "prediction": "LIKELY_FAKE",
+  "confidence": 0.942,
+  "model_version": "classical_tfidf_v1",
+  "backend": "sklearn_tfidf",
+  "claims": [
+    {
+      "text": "A secret ancient root discovered deep in the jungle completely eradicates all malignant tumors overnight.",
+      "importance": 0.85,
+      "assessment": "potentially_unsupported",
+      "evidence": [
+        {
+          "source_name": "National Cancer Institute Fact Check",
+          "url": "https://www.cancer.gov/about-cancer/treatment/clinical-trials/debunked",
+          "title": "Clinical oncology consensus: No ancient root eradicates terminal cancer in 24 hours",
+          "stance": "contradicts",
+          "relevance_score": 0.92
+        }
+      ]
+    }
+  ],
+  "explanation": [
+    {"token": "secret", "score": 0.28, "direction": "fake", "influence": "high"},
+    {"token": "miracle", "score": 0.22, "direction": "fake", "influence": "high"},
+    {"token": "banned", "score": 0.18, "direction": "fake", "influence": "medium"}
+  ],
+  "narrative": "The system assesses this article as likely fake based on model prediction and available evidence.",
+  "limitations": [
+    "This result is an AI-generated probabilistic assessment, not proof that an article is true or false.",
+    "Truth cannot always be inferred from writing style."
+  ]
+}</pre>
+
+<h3>Key Demonstration Interfaces</h3>
+<ul>
+  <li><strong>Analyze Page:</strong> Dual-mode input (manual paste or URL fetch), model selector, and batch CSV uploader.</li>
+  <li><strong>Attribution Heatmap:</strong> Interactive highlight overlays showing tokens that influenced the score.</li>
+  <li><strong>Evidence Cards:</strong> Collapsible cards showing retrieved external sources with stance badges.</li>
+  <li><strong>Dashboard:</strong> Recharts analytics visualizing past verifications, confidence distributions, and category trends.</li>
+  <li><strong>Chrome Extension:</strong> Single-click verification popup that extracts and analyzes the active webpage.</li>
+</ul>
+
+<hr>
+
+<h1>Slide 7: Accuracy, Deployment & Real-World Applications</h1>
+
+<h3>Accuracy Evaluation: Benchmark vs. Real-World</h3>
+<ul>
+  <li><strong>Benchmark Metric:</strong> 100% accuracy, precision, and recall on the controlled synthetic engineering corpus (<code>models/metrics.json</code>).</li>
+  <li><strong>Real-World Nuance:</strong> The system responsibly avoids claiming "absolute truth accuracy" because physical truth is distinct from writing style. Instead, it utilizes a 3-tier calibrated output (<code>UNCERTAIN</code> for ambiguous cases), claim extraction, and external fact-checking to maximize real-world precision.</li>
+</ul>
+
+<h3>Deployment Status & Cloud Architecture</h3>
+<ul>
+  <li><strong>Local Execution:</strong> Active locally via FastAPI backend (<code>http://localhost:8000</code>), React Vite frontend (<code>http://localhost:5173</code>), and Chrome extension.</li>
+  <li><strong>Cloud Deployment Blueprint:</strong>
+    <ul>
+      <li><em>Backend API:</em> Configured for <strong>Render</strong> (<code>render.yaml</code>, Python 3.11 web service).</li>
+      <li><em>Frontend UI:</em> Configured for <strong>Vercel</strong> (Vite static SPA build with <code>VITE_API_URL</code> environment variable).</li>
+      <li><em>Database:</em> Scalable to managed <strong>PostgreSQL</strong> (Supabase / Render Postgres).</li>
+    </ul>
+  </li>
+</ul>
+
+<h3>Real-World Applications</h3>
+<ol>
+  <li><strong>Newsrooms & Fact-Checking Desks:</strong> Automated first-pass triage tool for journalists reviewing unvetted tips and viral social media claims.</li>
+  <li><strong>Social Media Content Moderation:</strong> Flags high-risk posts for human review while minimizing false positives using the <code>UNCERTAIN</code> threshold.</li>
+  <li><strong>Browser Companion for Readers:</strong> Empowers everyday readers to identify sensational language, unverified claims, and questionable domains.</li>
+  <li><strong>Media Literacy Education:</strong> Teaches students how language patterns, domain reputations, and corroborating citations distinguish credible journalism from disinformation.</li>
+</ol>
+
+<div class="footer-note">
+  Veritas Project Defense Guide &bull; fake-news-verification &bull; Open Source MIT License
+</div>
+
+</body>
+</html>

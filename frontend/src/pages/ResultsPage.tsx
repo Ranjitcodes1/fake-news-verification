@@ -6,6 +6,7 @@ import {
   AlertTriangle,
   HelpCircle,
   Cpu,
+  Globe,
   ExternalLink,
   ShieldCheck,
   Filter,
@@ -119,6 +120,13 @@ export default function ResultsPage() {
                 <Cpu className="h-3 w-3 text-emerald-400" />
                 <span>{result.model_version}</span>
               </span>
+
+              {result.language_name && (
+                <span className="inline-flex items-center gap-1 rounded-md bg-indigo-950/60 border border-indigo-800/60 px-2.5 py-0.5 font-mono text-[11px] font-semibold text-indigo-300">
+                  <Globe className="h-3 w-3 text-indigo-400" />
+                  <span>{result.language_name}</span>
+                </span>
+              )}
             </div>
 
             <h1 className="text-xl font-bold tracking-tight text-white sm:text-2xl">
@@ -149,6 +157,98 @@ export default function ResultsPage() {
           </div>
         </div>
       </section>
+
+      {/* Source Article & Domain Forensics (when verified by URL) */}
+      {result.source_url && (
+        <section className="rounded-3xl border border-slate-800 bg-slate-900/90 p-6 shadow-xl backdrop-blur-xl">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-b border-slate-800 pb-4">
+            <div className="flex items-center gap-3">
+              <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-emerald-500/10 border border-emerald-500/20 text-emerald-400">
+                <Globe className="h-5 w-5" />
+              </div>
+              <div>
+                <h2 className="text-sm font-bold text-white flex items-center gap-2">
+                  <span>Source Article & Domain Forensics</span>
+                  <span className="rounded-md border border-emerald-500/30 bg-emerald-950/60 px-2 py-0.5 font-mono text-[10px] font-bold text-emerald-400 uppercase">
+                    Extracted
+                  </span>
+                </h2>
+                <p className="text-xs text-slate-400">
+                  Publisher origin, canonical domain verification, and trustworthiness index.
+                </p>
+              </div>
+            </div>
+
+            <a
+              href={result.source_url}
+              target="_blank"
+              rel="noreferrer"
+              className="inline-flex items-center gap-1.5 rounded-xl border border-emerald-500/30 bg-emerald-950/40 px-3.5 py-1.5 font-mono text-xs font-semibold text-emerald-300 hover:bg-emerald-900/50 transition"
+            >
+              <span>Visit Original Source</span>
+              <ExternalLink className="h-3.5 w-3.5" />
+            </a>
+          </div>
+
+          <div className="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {/* Publisher */}
+            <div className="rounded-xl border border-slate-800 bg-slate-950/80 p-3.5">
+              <span className="font-mono text-[10px] text-slate-400 uppercase">Publisher / Outlet</span>
+              <p className="mt-1 font-semibold text-white text-xs truncate">
+                {result.source_analysis?.publisher || result.source_analysis?.domain || "Web Source"}
+              </p>
+            </div>
+
+            {/* Domain Category */}
+            <div className="rounded-xl border border-slate-800 bg-slate-950/80 p-3.5">
+              <span className="font-mono text-[10px] text-slate-400 uppercase">Domain Category</span>
+              <p className="mt-1 font-mono font-semibold text-emerald-400 text-xs">
+                {result.source_analysis?.category || "UNKNOWN"}
+              </p>
+            </div>
+
+            {/* Trust Score */}
+            <div className="rounded-xl border border-slate-800 bg-slate-950/80 p-3.5">
+              <span className="font-mono text-[10px] text-slate-400 uppercase">Source Trust Score</span>
+              <p className="mt-1 font-mono font-semibold text-white text-xs">
+                {percent(result.source_analysis?.trust_score ?? 0.50)}
+              </p>
+            </div>
+
+            {/* Published Date */}
+            <div className="rounded-xl border border-slate-800 bg-slate-950/80 p-3.5">
+              <span className="font-mono text-[10px] text-slate-400 uppercase">Published Date</span>
+              <p className="mt-1 font-mono text-slate-300 text-xs truncate">
+                {result.source_analysis?.published_date || "Not specified in meta"}
+              </p>
+            </div>
+          </div>
+
+          {/* Hero image preview if available */}
+          {result.source_analysis?.image_url && (
+            <div className="mt-4 flex items-center gap-4 rounded-xl border border-slate-800 bg-slate-950/60 p-3">
+              <img
+                src={result.source_analysis.image_url}
+                alt="Article Hero"
+                className="h-16 w-24 object-cover rounded-lg border border-slate-800 shrink-0"
+                onError={(e) => (e.currentTarget.style.display = "none")}
+              />
+              <div className="text-xs text-slate-300 space-y-1 overflow-hidden">
+                <p className="font-semibold text-white truncate">{result.headline}</p>
+                <p className="font-mono text-[10px] text-slate-400 truncate">{result.source_url}</p>
+              </div>
+            </div>
+          )}
+
+          {/* Typosquat warning if any */}
+          {result.source_analysis?.typosquat_warning && (
+            <div className="mt-3 flex items-center gap-2 rounded-xl border border-rose-800/60 bg-rose-950/40 p-3 text-xs text-rose-300">
+              <AlertTriangle className="h-4 w-4 shrink-0" />
+              <span>{result.source_analysis.typosquat_warning}</span>
+            </div>
+          )}
+        </section>
+      )}
 
       {/* Interactive Token Attribution Heatmap */}
       {allAttributions.length > 0 && (

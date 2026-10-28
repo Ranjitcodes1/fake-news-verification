@@ -50,7 +50,8 @@ def build_models() -> dict[str, Pipeline]:
         ngram_range=(1, 2),
         min_df=1,
         sublinear_tf=True,
-        strip_accents="unicode",
+        strip_accents=None,
+        token_pattern=r"(?u)\b\w+\b",
     )
     return {
         "logistic_regression": Pipeline(

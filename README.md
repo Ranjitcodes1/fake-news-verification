@@ -4,23 +4,33 @@ Veritas is a modular verification assistant: a user pastes a headline and articl
 
 This is an AI-generated **probabilistic assessment**, not proof that a story is true or false.
 
+## 📌 Project Links & Documentation
+
+- **Repository:** [https://github.com/Ranjitcodes1/fake-news-verification](https://github.com/Ranjitcodes1/fake-news-verification)
+- **Full Technical Project Report:** [`docs/FINAL_PROJECT_REPORT.md`](docs/FINAL_PROJECT_REPORT.md) ([Download PDF](docs/FINAL_PROJECT_REPORT.pdf))
+- **Presentation & Defense Guide:** [`PROJECT_PRESENTATION.md`](PROJECT_PRESENTATION.md)
+- **Chrome Extension Manual:** [`extension/README.md`](extension/README.md)
+- **Interactive API Documentation:** `http://localhost:8000/docs`
+- **Frontend Dashboard:** `http://localhost:5173`
+
 ## Problem
 
 Automated “fake news” labels are easy to over-claim. Style-based classifiers confuse satire, opinion, and breaking news. This project treats detection as a **decision-support** product: thresholds, explanations, evidence interfaces, and explicit limitations.
 
 ## Features
 
-- Paste headline + article, or attempt URL extraction with SSRF protections
-- Batch and CSV multi-article verification mode
-- Dynamic model selection: Classical TF-IDF models (LR, Naive Bayes, SVM, Random Forest) and DistilBERT fine-tuned sequence transformer
-- Three-class calibrated decision layer (`LIKELY_REAL`, `LIKELY_FAKE`, `UNCERTAIN`)
-- In-text stylistic token attribution heatmaps with directional polarity filters
-- Proposition extraction for discrete empirical assertions
-- Multi-provider evidence retrieval: Google Fact Check Tools API, live public web search feeds, NewsAPI, and offline mock index
-- Source domain category tagging (`ESTABLISHED_NEWS`, `OFFICIAL`, `RESEARCH_ORGANIZATION`, `SUSPICIOUS`, `UNKNOWN`)
-- User authentication & multi-tenancy (JWT tokens, private analysis history, user-scoped dashboard)
-- Dark Mode and Light Mode theme switcher
-- PostgreSQL/SQLite history, Recharts dashboard visualizations, Docker Compose, and GitHub Actions CI
+- **Multi-modal Ingestion:** Paste headline + article, attempt SSRF-protected URL extraction, or upload batch CSV files
+- **Google Chrome / Chromium Extension (Manifest V3):** 1-click active tab verification and right-click context menu claim scanning
+- **Multilingual Support:** Native language detection and heuristics for English, Odia (`or`), Hindi (`hi`), and Spanish (`es`)
+- **Dynamic Model Selection:** Classical TF-IDF models (Logistic Regression, Naive Bayes, Linear SVM, Random Forest) and fine-tuned DistilBERT transformer
+- **Three-Class Calibrated Decision Layer:** (`LIKELY_REAL`, `LIKELY_FAKE`, `UNCERTAIN`) with epistemic safeguard thresholds
+- **Explainable AI (XAI):** In-text token attribution heatmaps with directional polarity filters
+- **Proposition Extraction:** Discrete empirical assertions isolated using reporting verbs and numerical patterns
+- **Multi-Provider Evidence Retrieval:** Google Fact Check Tools API, live public web search feeds, NewsAPI, and verified offline index
+- **Domain Authority Forensics:** Source category tagging (`ESTABLISHED_NEWS`, `OFFICIAL`, `RESEARCH_ORGANIZATION`, `SUSPICIOUS`, `UNKNOWN`)
+- **User Authentication & History:** JWT tokens, private analysis history, user-scoped dashboard, and SQLite/PostgreSQL ORM
+- **Interactive Visualizations:** WebGL Three.js 3D verification node graph, Recharts metric visualizers, and Dark/Light mode theme switcher
+- **Production DevOps:** Docker Compose, GitHub Actions CI, and Render/Vercel deployment guides
 
 ## Architecture
 

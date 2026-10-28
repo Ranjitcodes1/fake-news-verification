@@ -83,6 +83,10 @@ def predict_article(headline: str, content: str, model_type: str = "auto") -> di
             if t_margin > c_margin:
                 raw = t_raw
 
+    from ml.preprocessing.languages import detect_language
+
+    lang_info = detect_language(f"{headline} {content}")
+
     label, confidence = apply_thresholds(
         raw["fake_probability"],
         settings.predict_fake_threshold,
@@ -92,6 +96,8 @@ def predict_article(headline: str, content: str, model_type: str = "auto") -> di
         **raw,
         "prediction": label,
         "confidence": round(float(confidence), 4),
+        "language": lang_info.code,
+        "language_name": f"{lang_info.name} ({lang_info.native_name})" if lang_info.native_name != lang_info.name else lang_info.name,
         "limitations": DEFAULT_LIMITATIONS,
     }
 

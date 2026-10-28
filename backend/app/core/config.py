@@ -31,7 +31,7 @@ class Settings(BaseSettings):
     predict_fake_threshold: float = 0.55
     predict_real_threshold: float = 0.55
     rate_limit_per_minute: int = 30
-    request_timeout_seconds: int = 15
+    request_timeout_seconds: int = 35
 
     @property
     def cors_origins(self) -> list[str]:

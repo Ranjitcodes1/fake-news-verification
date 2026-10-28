@@ -39,6 +39,13 @@ def test_claim_extraction():
     assert any("education" in c["text"].lower() or "funding" in c["text"].lower() for c in claims)
 
 
+def test_odia_claim_extraction():
+    odia_text = "ଓଡ଼ିଶା ସରକାର ନୂତନ ଶିଳ୍ପ ନୀତି ଘୋଷଣା କରିଛନ୍ତି। ଏହା ଦ୍ୱାରା ୫୦୦ କୋଟି ଟଙ୍କାର ପ୍ରକଳ୍ପ ମଞ୍ଜୁର କରାଯାଇଛି।"
+    claims = extract_claims(odia_text)
+    assert claims
+    assert any("ଶିଳ୍ପ" in c["text"] or "୫୦୦" in c["text"] for c in claims)
+
+
 def test_source_categories():
     assert classify_domain("https://www.reuters.com/world") == "ESTABLISHED_NEWS"
     assert classify_domain("https://www.cdc.gov/flu") in {"OFFICIAL", "RESEARCH_ORGANIZATION"}
@@ -62,3 +69,15 @@ def test_verify_fake_style_article():
     assert 0 <= result["confidence"] <= 1
     assert result["model_version"]
     assert result["explanation"] is not None
+    assert result["language"] == "en"
+
+
+def test_verify_odia_article():
+    result = verify_article(
+        "ଓଡ଼ିଶା ସରକାର ନୂତନ ଶିଳ୍ପ ନୀତି ଅଧୀନରେ ୫୦୦ କୋଟି ଟଙ୍କାର ପ୍ରକଳ୍ପ ମଞ୍ଜୁର କଲେ",
+        "ରାଜ୍ୟ କ୍ୟାବିନେଟ୍ ବୈଠକରେ ଶିଳ୍ପାୟନ ଏବଂ ରୋଜଗାର ସୃଷ୍ଟି ପାଇଁ ୫୦୦ କୋଟି ଟଙ୍କାର ନୂତନ ପ୍ରକଳ୍ପ ଅନୁମୋଦନ କରାଯାଇଛି। ସରକାରୀ ତଥ୍ୟ ଆଧାରରେ ତଦାରଖ ପ୍ରକ୍ରିୟା କଡ଼ାକଡ଼ି କରାଯିବ।",
+    )
+    assert result["prediction"] in {"LIKELY_FAKE", "UNCERTAIN", "LIKELY_REAL"}
+    assert result["language"] == "or"
+    assert "Odia" in result["language_name"]
+

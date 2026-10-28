@@ -11,6 +11,23 @@ import csv
 from pathlib import Path
 
 REAL_ARTICLES: list[tuple[str, str]] = [
+    # --- Multilingual Real Articles (Odia, Hindi, Spanish) ---
+    (
+        "ଓଡ଼ିଶା ସରକାର ନୂତନ ଶିଳ୍ପ ନୀତି ଅଧୀନରେ ୫୦୦ କୋଟି ଟଙ୍କାର ପ୍ରକଳ୍ପ ମଞ୍ଜୁର କଲେ",
+        "ରାଜ୍ୟ କ୍ୟାବିନେଟ୍ ବୈଠକରେ ଶିଳ୍ପାୟନ ଏବଂ ରୋଜଗାର ସୃଷ୍ଟି ପାଇଁ ୫୦୦ କୋଟି ଟଙ୍କାର ନୂତନ ପ୍ରକଳ୍ପ ଅନୁମୋଦନ କରାଯାଇଛି। ଶିଳ୍ପ ବିଭାଗ ପକ୍ଷରୁ ସୂଚନା ଦିଆଯାଇଛି ଯେ ଏହା ଦ୍ୱାରା ୧୦ ହଜାରରୁ ଊର୍ଦ୍ଧ୍ୱ ଯୁବକଯୁବତୀଙ୍କୁ ନିଯୁକ୍ତି ମିଳିବ। ସରକାରୀ ତଥ୍ୟ ଆଧାରରେ ତଦାରଖ ପ୍ରକ୍ରିୟା କଡ଼ାକଡ଼ି କରାଯିବ।",
+    ),
+    (
+        "ଭାରତୀୟ ପାଣିପାଗ ବିଭାଗ ପକ୍ଷରୁ ଉପକୂଳ ଓଡ଼ିଶାରେ ପ୍ରବଳ ବର୍ଷା ପୂର୍ବାନୁମାନ",
+        "ବଙ୍ଗୋପସାଗରରେ ସୃଷ୍ଟି ହୋଇଥିବା ଲଘୁଚାପ ଯୋଗୁଁ ଆଗାମୀ ୪୮ ଘଣ୍ଟା ମଧ୍ୟରେ ଉପକୂଳ ଜିଲ୍ଲାଗୁଡ଼ିକରେ ପ୍ରବଳ ବର୍ଷା ହେବାର ସମ୍ଭାବନା ରହିଛି। ପାଣିପାଗ ବିଜ୍ଞାନ କେନ୍ଦ୍ର ପକ୍ଷରୁ ମତ୍ସ୍ୟଜୀବୀମାନଙ୍କୁ ସମୁଦ୍ର ମଧ୍ୟକୁ ନଯିବା ପାଇଁ ସତର୍କ କରାଯାଇଛି।",
+    ),
+    (
+        "भारतीय रिजर्व बैंक ने मौद्रिक नीति समीक्षा में ब्याज दरों को स्थिर रखा",
+        "केंद्रीय बैंक ने मुद्रास्फीति के आंकड़ों और वैश्विक आर्थिक रुझानों की समीक्षा के बाद प्रमुख नीतिगत ब्याज दरों में कोई बदलाव नहीं किया है। अधिकारियों ने आधिकारिक प्रेस विज्ञप्ति में पुष्टि की है कि वे मूल्य स्थिरता बनाए रखने के लिए प्रतिबद्ध हैं।",
+    ),
+    (
+        "El Banco Central mantiene los tipos de interés tras moderarse la inflación",
+        "La entidad bancaria central decidió mantener estables los tipos de interés de referencia durante su reunión de política monetaria. Las autoridades oficiales señalaron que seguirán evaluando los datos económicos antes de adoptar nuevas medidas.",
+    ),
     (
         "Central bank holds interest rates steady after inflation cools",
         "The central bank left its benchmark interest rate unchanged on Wednesday, citing slower consumer-price growth over the past two quarters. Officials said they would continue to monitor labor-market data before considering further cuts. Independent economists noted that core inflation remains above the long-term target.",
@@ -334,6 +351,23 @@ REAL_ARTICLES: list[tuple[str, str]] = [
 ]
 
 FAKE_ARTICLES: list[tuple[str, str]] = [
+    # --- Multilingual Fake Articles (Odia, Hindi, Spanish) ---
+    (
+        "ଚାଞ୍ଚଲ୍ୟକର ଖବର: ରାତି ୧୦ଟା ପରେ ସବୁ ବ୍ୟାଙ୍କ ଖାତା ବନ୍ଦ ଏବଂ ଟଙ୍କା ଜବତ ହେବ",
+        "ସୋସିଆଲ ମିଡିଆରେ ଭାଇରାଲ ହେଉଛି ଯେ ଆଜି ମଧ୍ୟରାତ୍ରିରୁ ସମସ୍ତ ବ୍ୟାଙ୍କ ଖାତା ସ୍ଥଗିତ ରହିବ ଏବଂ ସରକାର ସବୁ ଟଙ୍କା ନେଇଯିବେ। ଏହି ଗୁପ୍ତ ଆଦେଶ ତୁରନ୍ତ ସମସ୍ତଙ୍କୁ ସେୟାର କରନ୍ତୁ ନଚେତ୍ ସବୁ ନଷ୍ଟ ହୋଇଯିବ। କୌଣସି ସରକାରୀ ପ୍ରମାଣ ନଥାଇ ଏହି ଗୁଜବ ପ୍ରଚାର କରାଯାଉଛି।",
+    ),
+    (
+        "ଚମତ୍କାର ଚେରମୂଳି: ୨୪ ଘଣ୍ଟାରେ ସମସ୍ତ କର୍କଟ ରୋଗ ୧୦୦ ପ୍ରତିଶତ ଭଲ କରିଦେବ",
+        "ଜଙ୍ଗଲରୁ ମିଳିଥିବା ଗୁପ୍ତ ପ୍ରାଚୀନ ଚେର ବ୍ୟବହାର କରି ଗୋଟିଏ ରାତିରେ ଯେକୌଣସି କର୍କଟ ରୋଗ ସମ୍ପୂର୍ଣ୍ଣ ନିର୍ମୂଳ ହେବ ବୋଲି ଦାବି କରାଯାଉଛି। ଡାକ୍ତରଖାନା ଏବଂ ଔଷଧ କମ୍ପାନୀମାନେ ଏହାକୁ ଲୁଚାଇ ରଖିଛନ୍ତି। ଏବେ ହିଁ ଅର୍ଡର କରନ୍ତୁ ନଚେତ୍ ନିଷିଦ୍ଧ ହୋଇଯିବ।",
+    ),
+    (
+        "चौंकाने वाला खुलासा: रात 10 बजे के बाद सभी यूपीआई लेनदेन पूरी तरह बंद",
+        "सोशल मीडिया पर तेजी से दावा किया जा रहा है कि सरकार ने आज रात से सभी डिजिटल भुगतान और यूपीआई सेवाओं पर प्रतिबंध लगा दिया है। जल्दी से अपना पैसा निकाल लें वरना बैंक खाता फ्रीज हो जाएगा। तुरंत सभी ग्रुपों में शेयर करें।",
+    ),
+    (
+        "¡Impactante secreto revelado! Una raíz mágica cura todo el cáncer en 24 horas",
+        "Científicos anónimos descubren un remedio casero milagroso que elimina todos los tumores malignos al 100% de la noche a la mañana. Los grandes hospitales intentan censurar esta información urgente. Comparte antes de que lo borren.",
+    ),
     (
         "SHOCKING: Scientists confirm the moon is a hologram controlled by elites",
         "BREAKING: A secret lab has 100% GUARANTEED proof that the moon is a hologram switched on at night by a hidden council. They don't want you to know that tides are actually caused by underground machines. Share before this is deleted!!!",

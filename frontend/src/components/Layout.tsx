@@ -35,9 +35,25 @@ export default function Layout() {
               </div>
             </Link>
 
-            <div className="hidden sm:flex items-center text-xs text-slate-400 font-mono">
-              <span>Headline & Article Text Verifier</span>
-            </div>
+            {/* Top Navigation Links */}
+            <nav className="hidden sm:flex items-center gap-1">
+              {NAV_LINKS.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  end={link.to === "/"}
+                  className={({ isActive }) =>
+                    `rounded-lg px-2.5 py-1 text-xs font-medium transition ${
+                      isActive
+                        ? "bg-emerald-500/15 text-emerald-300 border border-emerald-500/30"
+                        : "text-slate-400 hover:text-white hover:bg-white/5"
+                    }`
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+            </nav>
           </div>
 
           <div className="flex items-center gap-2.5">

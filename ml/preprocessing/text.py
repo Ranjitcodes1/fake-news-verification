@@ -6,9 +6,13 @@ from dataclasses import dataclass
 import pandas as pd
 from sklearn.model_selection import GroupShuffleSplit, train_test_split
 
+import unicodedata
+
+from ml.preprocessing.languages import detect_language
+
 URL_RE = re.compile(r"https?://\S+|www\.\S+", re.IGNORECASE)
-WHITESPACE_RE = re.compile(r"\s+")
-NON_ALNUM_RE = re.compile(r"[^a-z0-9\s]")
+WHITESPACE_RE = re.compile(r"\s+", re.UNICODE)
+NON_WORD_RE = re.compile(r"[^\w\s]", re.UNICODE)
 
 
 @dataclass(frozen=True)
@@ -21,10 +25,21 @@ class SplitFrames:
 def clean_text(text: str) -> str:
     if not isinstance(text, str):
         return ""
-    lowered = text.lower()
-    without_urls = URL_RE.sub(" ", lowered)
-    alnum = NON_ALNUM_RE.sub(" ", without_urls)
-    return WHITESPACE_RE.sub(" ", alnum).strip()
+    # Normalize unicode NFKC
+    normalized = unicodedata.normalize("NFKC", text)
+    without_urls = URL_RE.sub(" ", normalized)
+    
+    # Retain Letters (L), Combining Marks/Matras (M), Numbers (N), and Whitespace
+    cleaned_chars = []
+    for char in without_urls:
+        cat = unicodedata.category(char)
+        if cat.startswith(("L", "M", "N")) or char.isspace():
+            cleaned_chars.append(char)
+        else:
+            cleaned_chars.append(" ")
+
+    result = "".join(cleaned_chars).lower()
+    return WHITESPACE_RE.sub(" ", result).strip()
 
 
 def combine_headline_content(headline: str, content: str) -> str:

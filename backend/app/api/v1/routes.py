@@ -104,12 +104,21 @@ def _verify_response(payload: dict, analysis_id: int | None = None, created_at=N
                 "evidence": evidence,
             }
         )
+    from ml.preprocessing.languages import detect_language
+
+    text_to_detect = f"{payload.get('headline') or ''} {payload.get('content') or ''}"
+    lang_info = detect_language(text_to_detect)
+    lang_code = payload.get("language") or lang_info.code
+    lang_name = payload.get("language_name") or (f"{lang_info.name} ({lang_info.native_name})" if lang_info.native_name != lang_info.name else lang_info.name)
+
     return VerifyResponse(
         id=analysis_id,
         prediction=payload["prediction"],
         confidence=payload["confidence"],
         model_version=payload["model_version"],
         backend=payload.get("backend") or "sklearn_tfidf",
+        language=lang_code,
+        language_name=lang_name,
         headline=payload.get("headline") or "",
         content=payload.get("content") or "",
         source_url=payload.get("source_url"),
@@ -171,6 +180,8 @@ def predict(body: PredictRequest):
         confidence=result["confidence"],
         model_version=result["model_version"],
         backend=result.get("backend", "sklearn_tfidf"),
+        language=result.get("language", "en"),
+        language_name=result.get("language_name", "English"),
         disclaimer=DISCLAIMER,
     )
 
@@ -182,7 +193,7 @@ def verify(
     user: User | None = Depends(get_optional_current_user),
 ):
     try:
-        payload = verify_article(body.headline, body.content, model_type=body.model_type)
+        payload = verify_article(body.headline, body.content, source_url=body.source_url, model_type=body.model_type)
         row = save_verification(db, payload, user_id=user.id if user else None)
     except ValueError as exc:
         raise HTTPException(status_code=422, detail=str(exc)) from exc
@@ -202,12 +213,22 @@ def analyze_url(
     except Exception as exc:  # noqa: BLE001
         raise HTTPException(
             status_code=502,
-            detail="Could not fetch that URL. Paste the article text instead.",
+            detail="Could not fetch that URL. The site may be blocking automated readers or requires subscription. Paste the article text directly.",
         ) from exc
-    headline = (body.headline or fetched["headline"] or "Untitled").strip()
+    headline = (body.headline or fetched.get("headline") or "Untitled").strip()
     payload = verify_article(headline, fetched["content"], source_url=fetched["url"], model_type=body.model_type)
+
+    # Attach rich extracted metadata from the live URL
+    source_analysis = payload.get("source_analysis") or {}
+    source_analysis["publisher"] = fetched.get("publisher")
+    source_analysis["published_date"] = fetched.get("published_date")
+    source_analysis["image_url"] = fetched.get("image_url")
+    source_analysis["author"] = fetched.get("author")
+    payload["source_analysis"] = source_analysis
+
     row = save_verification(db, payload, user_id=user.id if user else None)
     return _verify_response(payload, analysis_id=row.id, created_at=row.created_at)
+
 
 
 @router.post("/verify-batch", response_model=BatchVerifyResponse)
@@ -254,16 +275,22 @@ def history(
 ):
     user_filter = user.id if (user and only_mine) else None
     rows = list_analyses(db, q=q, prediction=prediction, user_id=user_filter)
-    return [
-        HistoryItem(
-            id=row.id,
-            headline=row.headline,
-            prediction=row.prediction,
-            confidence=row.confidence,
-            created_at=row.created_at,
+    history_items = []
+    from ml.preprocessing.languages import detect_language
+    for row in rows:
+        lang_info = detect_language(row.headline or "")
+        history_items.append(
+            HistoryItem(
+                id=row.id,
+                headline=row.headline,
+                prediction=row.prediction,
+                confidence=row.confidence,
+                language=lang_info.code,
+                language_name=f"{lang_info.name} ({lang_info.native_name})" if lang_info.native_name != lang_info.name else lang_info.name,
+                created_at=row.created_at,
+            )
         )
-        for row in rows
-    ]
+    return history_items
 
 
 @router.get("/analysis/{analysis_id}", response_model=VerifyResponse)

@@ -73,6 +73,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
     setLoading(true);
     try {
+      let result = null;
       const response = await fetch(`${apiUrl}/analyze-url`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -82,12 +83,52 @@ document.addEventListener("DOMContentLoaded", async () => {
         })
       });
 
-      if (!response.ok) {
-        const errData = await response.json().catch(() => ({}));
-        throw new Error(errData.detail || `Server error: ${response.status}`);
+      if (response.ok) {
+        result = await response.json();
+      } else {
+        // Fallback: If site blocks automated server scraping (e.g. Akamai/Cloudflare 403 on NDTV),
+        // read text directly from the already-rendered browser tab DOM
+        try {
+          const [injection] = await chrome.scripting.executeScript({
+            target: { tabId: activeTab.id },
+            func: () => {
+              const article = document.querySelector("article") || document.querySelector("main") || document.body;
+              const h1 = document.querySelector("h1");
+              const title = h1 ? h1.innerText.trim() : document.title;
+              const paragraphs = Array.from(article.querySelectorAll("p"))
+                .map(p => p.innerText.trim())
+                .filter(t => t.length > 30);
+              const content = paragraphs.length > 0 ? paragraphs.join("\n\n") : article.innerText.slice(0, 10000);
+              return { headline: title, content };
+            }
+          });
+
+          if (injection && injection.result && injection.result.content && injection.result.content.length > 60) {
+            const { headline, content } = injection.result;
+            const fallbackResponse = await fetch(`${apiUrl}/verify`, {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({
+                headline: headline || activeTab.title || "Web Article",
+                content: content.slice(0, 15000),
+                source_url: activeTab.url
+              })
+            });
+
+            if (fallbackResponse.ok) {
+              result = await fallbackResponse.json();
+            }
+          }
+        } catch (domErr) {
+          console.warn("Direct DOM fallback error:", domErr);
+        }
+
+        if (!result) {
+          const errData = await response.json().catch(() => ({}));
+          throw new Error(errData.detail || `Server could not read URL (${response.status}).`);
+        }
       }
 
-      const result = await response.json();
       displayResult(result);
     } catch (err) {
       showError(err.message || "Failed to analyze URL.");
