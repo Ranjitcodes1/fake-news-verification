@@ -1,5 +1,5 @@
 import { Link, NavLink, Outlet } from "react-router-dom";
-import { ShieldCheck, User, LogOut } from "lucide-react";
+import { ShieldCheck, Github, LogOut } from "lucide-react";
 import { useAuth } from "../context/AuthContext";
 import Background3D from "./Background3D";
 
@@ -70,15 +70,17 @@ export default function Layout() {
                   <span className="hidden sm:inline">Logout</span>
                 </button>
               </div>
-            ) : (
-              <Link
-                to="/auth"
-                className="flex h-8 items-center gap-1.5 rounded-lg bg-emerald-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-sm transition hover:bg-emerald-500"
-              >
-                <User className="h-3.5 w-3.5" />
-                <span>Account</span>
-              </Link>
-            )}
+            ) : null}
+
+            <a
+              href="https://github.com/Ranjitcodes1/fake-news-verification"
+              target="_blank"
+              rel="noreferrer"
+              className="flex h-8 items-center gap-1.5 rounded-lg border border-white/10 bg-slate-900/80 px-3 py-1.5 text-xs font-medium text-slate-300 shadow-sm transition hover:bg-white/10 hover:text-white"
+            >
+              <Github className="h-3.5 w-3.5" />
+              <span className="hidden sm:inline">GitHub</span>
+            </a>
           </div>
         </div>
       </header>
