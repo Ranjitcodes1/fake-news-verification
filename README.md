@@ -7,7 +7,7 @@ This is an AI-generated **probabilistic assessment**, not proof that a story is 
 ## 📌 Project Links & Documentation
 
 - **Repository:** [https://github.com/Ranjitcodes1/fake-news-verification](https://github.com/Ranjitcodes1/fake-news-verification)
-- **Full Technical Project Report:** [`docs/FINAL_PROJECT_REPORT.md`](docs/FINAL_PROJECT_REPORT.md) ([Download PDF](docs/FINAL_PROJECT_REPORT.pdf))
+- **Full Technical Project Report:** [`docs/FINAL_PROJECT_REPORT.md`](docs/FINAL_PROJECT_REPORT.md)
 - **Presentation & Defense Guide:** [`PROJECT_PRESENTATION.md`](PROJECT_PRESENTATION.md)
 - **Chrome Extension Manual:** [`extension/README.md`](extension/README.md)
 - **Interactive API Documentation:** `http://localhost:8000/docs`
